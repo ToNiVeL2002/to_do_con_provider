@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_simple_con_provider/widgets/my_button.dart';
 
 class DialogBox extends StatelessWidget {
   final controler;
@@ -41,7 +40,7 @@ class DialogBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 // boton de guardar
-                MyButton(
+                _MyButton(
                   text: 'Guardar', 
                   onPressed: onSave,
                 ),
@@ -49,7 +48,7 @@ class DialogBox extends StatelessWidget {
                 // SizedBox(width: 8,),
                 
                 //boton de cancelar
-                MyButton(
+                _MyButton(
                   text: 'Cancelar', 
                   onPressed: onCancel,
                 ),
@@ -60,5 +59,32 @@ class DialogBox extends StatelessWidget {
         ),
       ),
     ); 
+  }
+}
+
+class _MyButton extends StatelessWidget {
+  final String text;
+  VoidCallback onPressed;
+
+  _MyButton({
+    super.key, 
+    required this.text,
+    required this.onPressed
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialButton(
+      onPressed: onPressed,
+      color: Theme.of(context).primaryColor,
+      child: Text(
+        text, 
+        style: const TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 20
+        ),
+      ),
+      
+    );
   }
 }

@@ -14,46 +14,18 @@ class ToDoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void eliminar ( int index ) {
+
+    toDoList.removeAt(index);
+    
+    notifyListeners();
+  }
+
+  void guardarNuevaTarea(String contenido, bool check ) {
+    toDoList.add(ToDoModel(contenido: contenido, check: check));
+
+    notifyListeners();
+  }
+
 }
 
-// Checkbox fue apretado
-  // void checkBoxChanged ( bool value, int index ) {
-  //   setState(() {
-  //     toDoList[index][1] = !toDoList[index][1];
-  //   });
-  // }
-
-  // Guardar la nueva tarea
-  // void saveNewTask() {
-  //   setState(() {
-  //     toDoList.add([ _controller.text, false ]);
-  //     _controller.clear();
-  //   });
-  //   Navigator.of(context).pop();
-  // }
-
-  // Crear una nueva tarea
-  // void createNewTask() {
-  //   showDialog(
-  //     context: context, 
-  //     builder: (context) {
-
-  //       return DialogBox(
-  //         controler: _controller,
-  //         onSave: saveNewTask,
-  //         onCancel: () {
-  //           Navigator.of(context).pop();
-  //           _controller.clear();
-  //         }
-  //       );
-  //     }
-  //   );
-  // }
-
-  // Eliminar una tarea
-  // void deleteTask(int index) {
-  //   setState(() {
-  //     toDoList.removeAt(index);
-  //   });
-
-  // }

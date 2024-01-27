@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
 
   // controlador del texto
   final _controller = TextEditingController();
-  List<ToDoModel> notas = [];
+  // List<ToDoModel> notas = [];
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,6 @@ class HomeScreen extends StatelessWidget {
     final toDoProvider = Provider.of<ToDoProvider>(context);
 
     return Scaffold(
-      // backgroundColor: Colors.yellow[200],
       appBar: AppBar(
         title: const Text(
           'TO DO',
@@ -42,11 +41,9 @@ class HomeScreen extends StatelessWidget {
                 taskName: toDoList[index].contenido, 
                 taskCompleted: toDoList[index].check, 
                 onChanged: ( value ) {
-                  toDoProvider.isCheck(value ?? false, index);
-                  
-                  print('me apretaron ${index}');
+                  toDoProvider.isCheck(value ?? false, index);                  
                 },
-                deleteFunction: ( context ) {},
+                deleteFunction: (context) => toDoProvider.eliminar(index),
               );
             }
           ),
@@ -56,6 +53,23 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // createNewTask();
+          showDialog(
+            context: context, 
+            builder: (context) {
+
+              return DialogBox(
+                controler: _controller,
+                onSave: () {
+                  toDoProvider.guardarNuevaTarea(_controller.text, false);
+                  Navigator.of(context).pop();
+                },
+                onCancel: () {
+                  Navigator.of(context).pop();
+                  _controller.clear();
+                }
+              );
+            }
+          );
         },
         child: const Icon(Icons.add),
       ),

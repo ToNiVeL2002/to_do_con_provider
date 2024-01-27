@@ -24,7 +24,7 @@ class ToDoTile extends StatelessWidget {
       padding: const EdgeInsets.only(left: 25.0, right: 15, top: 25, bottom: 10),
       child: Slidable(
         endActionPane: ActionPane(
-          motion: StretchMotion(), 
+          motion: const StretchMotion(), 
           children: [
             SlidableAction(
               onPressed: deleteFunction,

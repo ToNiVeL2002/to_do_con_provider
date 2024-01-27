@@ -43,7 +43,9 @@ class HomeScreen extends StatelessWidget {
                 onChanged: ( value ) {
                   toDoProvider.isCheck(value ?? false, index);                  
                 },
-                deleteFunction: (context) => toDoProvider.eliminar(index),
+                deleteFunction: ( context ) => toDoProvider.eliminar(index), 
+                controller: _controller,
+                index: index,
               );
             }
           ),

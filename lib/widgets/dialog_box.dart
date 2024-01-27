@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_simple_con_provider/providers/providers.dart';
 
 class DialogBox extends StatelessWidget {
   final controler;
   VoidCallback onSave;
   VoidCallback onCancel;
+  String? x;
 
   DialogBox({
     super.key, 
     required this.controler,
     required this.onSave,
     required this.onCancel,
+    this.x
   });
 
   @override
   Widget build(BuildContext context) {
 
     final Size screen = MediaQuery.of(context).size;
+    final toDoProvider = Provider.of<ToDoProvider>(context);
 
     return AlertDialog(
       backgroundColor: const Color(0xffC5FFF8),
@@ -27,6 +32,9 @@ class DialogBox extends StatelessWidget {
           children: [
             // Obtener entrada del usuario
             TextField(
+              // controller: toDoProvider.flag 
+              // ? TextEditingController(text: x)
+              // : controler,
               controller: controler,
               decoration: InputDecoration(
                 border: OutlineInputBorder(

@@ -6,7 +6,7 @@ class ToDoProvider extends ChangeNotifier {
 
   get check => _check;
   
-  void isCheck ( bool value, int index ) {
+  void isCheck( bool value, int index ) {
     _check = value;
 
     toDoList[index].check = value;
@@ -14,16 +14,22 @@ class ToDoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void eliminar ( int index ) {
+  void eliminar( int index ) {
 
     toDoList.removeAt(index);
     
     notifyListeners();
   }
 
-  void guardarNuevaTarea(String contenido, bool check ) {
+  void guardarNuevaTarea( String contenido, bool check ) {
     toDoList.add(ToDoModel(contenido: contenido, check: check));
 
+    notifyListeners();
+  }
+
+  void editarTarea( String contenido, int index ) {
+    toDoList[index].contenido = contenido;
+    
     notifyListeners();
   }
 

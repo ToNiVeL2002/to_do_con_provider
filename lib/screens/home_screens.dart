@@ -1,69 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_simple_con_provider/models/models.dart';
+import 'package:to_do_simple_con_provider/providers/providers.dart';
 import 'package:to_do_simple_con_provider/widgets/widgets.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
    
-  const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
+  HomeScreen({Key? key}) : super(key: key);
 
   // controlador del texto
   final _controller = TextEditingController();
-
-  // Lista de tareas para hacer
-  List toDoList = [
-    ['Hacer la apicacion', false],
-    ['Hacer ejercicio', false],
-  ];
-
-  // Checkbox fue apretado
-  void checkBoxChanged ( bool value, int index ) {
-    setState(() {
-      toDoList[index][1] = !toDoList[index][1];
-    });
-  }
-
-  // Guardar la nueva tarea
-  void saveNewTask() {
-    setState(() {
-      toDoList.add([ _controller.text, false ]);
-      _controller.clear();
-    });
-    Navigator.of(context).pop();
-  }
-
-  // Crear una nueva tarea
-  void createNewTask() {
-    showDialog(
-      context: context, 
-      builder: (context) {
-
-        return DialogBox(
-          controler: _controller,
-          onSave: saveNewTask,
-          onCancel: () {
-            Navigator.of(context).pop();
-            _controller.clear();
-          }
-        );
-      }
-    );
-  }
-
-  // Eliminar una tarea
-  void deleteTask(int index) {
-    setState(() {
-      toDoList.removeAt(index);
-    });
-
-  }
+  List<ToDoModel> notas = [];
 
   @override
   Widget build(BuildContext context) {
+
+    final toDoProvider = Provider.of<ToDoProvider>(context);
+
     return Scaffold(
       // backgroundColor: Colors.yellow[200],
       appBar: AppBar(
@@ -86,10 +39,14 @@ class _HomeScreenState extends State<HomeScreen> {
             itemBuilder: (context, index) {
 
               return ToDoTile(
-                taskName: toDoList[index][0], 
-                taskCompleted: toDoList[index][1], 
-                onChanged: ( value ) => checkBoxChanged(value!, index),
-                deleteFunction: ( context ) => deleteTask(index),
+                taskName: toDoList[index].contenido, 
+                taskCompleted: toDoList[index].check, 
+                onChanged: ( value ) {
+                  toDoProvider.isCheck(value ?? false, index);
+                  
+                  print('me apretaron ${index}');
+                },
+                deleteFunction: ( context ) {},
               );
             }
           ),
@@ -98,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          createNewTask();
+          // createNewTask();
         },
         child: const Icon(Icons.add),
       ),

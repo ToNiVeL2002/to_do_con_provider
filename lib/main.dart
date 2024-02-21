@@ -24,17 +24,17 @@ class MyApp extends StatelessWidget {
       routes: {
         'home' : ( _ ) => HomeScreen()
       },
-      theme: ThemeData(
-        primaryColor: const Color(0xff7B66FF),
-        // useMaterial3: false,
-        appBarTheme: const AppBarTheme(
-          color: Color(0xff7B66FF),
-        ),
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: Color(0xff7B66FF),
-          elevation: 15
-        ),
-      ),
+      // theme: ThemeData(
+      //   primaryColor: const Color(0xff7B66FF),
+      //   // useMaterial3: false,
+      //   appBarTheme: const AppBarTheme(
+      //     color: Color(0xff7B66FF),
+      //   ),
+      //   floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      //     backgroundColor: Color(0xff7B66FF),
+      //     elevation: 15
+      //   ),
+      // ),
     );
   }
 }

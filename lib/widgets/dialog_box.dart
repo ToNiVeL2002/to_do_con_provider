@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:to_do_simple_con_provider/providers/providers.dart';
 
 class DialogBox extends StatelessWidget {
   final controler;
@@ -20,7 +18,6 @@ class DialogBox extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final Size screen = MediaQuery.of(context).size;
-    final toDoProvider = Provider.of<ToDoProvider>(context);
 
     return AlertDialog(
       backgroundColor: const Color(0xffC5FFF8),

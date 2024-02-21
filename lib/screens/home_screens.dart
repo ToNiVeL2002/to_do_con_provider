@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_simple_con_provider/models/models.dart';
 import 'package:to_do_simple_con_provider/providers/providers.dart';
@@ -18,37 +19,20 @@ class HomeScreen extends StatelessWidget {
     final toDoProvider = Provider.of<ToDoProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'TO DO',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 30
-          ),
-        ),
-        centerTitle: true,
-      ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     'PENDIENTES',
+      //     style: GoogleFonts.archivoBlack()
+      //   ),
+      //   // centerTitle: true,
+      // ),
 
       body: Stack(
         children: [
           const Background(),
 
-          ListView.builder(
-            itemCount: toDoList.length,
-            itemBuilder: (context, index) {
-
-              return ToDoTile(
-                taskName: toDoList[index].contenido, 
-                taskCompleted: toDoList[index].check, 
-                onChanged: ( value ) {
-                  toDoProvider.isCheck(value ?? false, index);                  
-                },
-                deleteFunction: ( context ) => toDoProvider.eliminar(index), 
-                controller: _controller,
-                index: index,
-              );
-            }
-          ),
+          _Body(toDoProvider: toDoProvider,), 
+          
         ],
       ),
 
@@ -76,5 +60,65 @@ class HomeScreen extends StatelessWidget {
         child: const Icon(Icons.add),
       ),
     );
+  }
+}
+
+class _Body extends StatelessWidget {
+  
+  final ToDoProvider toDoProvider;
+
+  const _Body({
+    super.key, 
+    required this.toDoProvider
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 40, 16, 5),
+      child: Column(
+        children: [
+          _Title(),
+
+          Expanded(
+            child: ListView.builder(
+              itemCount: toDoList.length,
+              itemBuilder: (context, index) {
+                return ToDoTile(todoModel: toDoList[index], index: index,);
+              }
+            )
+          )
+
+          
+        ],
+
+
+      ),
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  const _Title({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          children: [
+            Text(
+              'Pendientes',
+              style: GoogleFonts.archivoBlack(
+                textStyle: TextStyle(
+                  fontSize: 30,
+                )
+              ),
+            )
+          ],
+        ),
+      );
   }
 }

@@ -3,8 +3,12 @@ import 'package:to_do_simple_con_provider/models/models.dart';
 
 class ToDoProvider extends ChangeNotifier {
   bool _check = false;
+  int _index = 0;
 
   get check => _check;
+
+  get index => _index;
+  set obtenerIndex( int value ) => _index = value;
   
   void isCheck( bool value, int index ) {
     _check = value;
@@ -27,11 +31,12 @@ class ToDoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void editarTarea( String contenido, int index ) {
-    toDoList[index].contenido = contenido;
+  void editarTarea( String contenido ) {
+    toDoList[_index].contenido = contenido;
     
     notifyListeners();
   }
+
 
 }
 

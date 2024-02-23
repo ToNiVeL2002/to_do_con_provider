@@ -4,13 +4,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_simple_con_provider/models/models.dart';
 import 'package:to_do_simple_con_provider/providers/providers.dart';
+import 'package:to_do_simple_con_provider/widgets/widgets.dart';
 
 class ToDoTile extends StatelessWidget {
 
   final ToDoModel todoModel;
   final int index;
+  // var _controler = TextEditingController();
 
-  const ToDoTile({
+
+  ToDoTile({
     super.key, 
     required this.todoModel, 
     required this.index, 
@@ -22,6 +25,7 @@ class ToDoTile extends StatelessWidget {
     Size screen = MediaQuery.of(context).size;
 
     final todoProvider = Provider.of<ToDoProvider>(context);
+    final _controler = TextEditingController(text: todoModel.contenido);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -31,7 +35,19 @@ class ToDoTile extends StatelessWidget {
           motion: ScrollMotion(), 
           children: [
             SlidableAction(
-              onPressed: ( context ) {print('vamo a editar');},
+              onPressed: ( context ) {
+                print('vamo a editar');
+                todoProvider.obtenerIndex = index;
+
+                showDialog(
+                  context: context, 
+                  builder: ( context ) {
+                    return DialogBox(
+                      controler: _controler, flag: false,
+                    );
+                  }
+                );
+              },
               icon: Icons.edit_outlined,
               label: 'Editar',
               backgroundColor: Colors.yellow.shade300,

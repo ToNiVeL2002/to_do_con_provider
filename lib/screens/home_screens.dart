@@ -11,7 +11,6 @@ class HomeScreen extends StatelessWidget {
 
   // controlador del texto
   final _controller = TextEditingController();
-  // List<ToDoModel> notas = [];
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +18,6 @@ class HomeScreen extends StatelessWidget {
     final toDoProvider = Provider.of<ToDoProvider>(context);
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(
-      //     'PENDIENTES',
-      //     style: GoogleFonts.archivoBlack()
-      //   ),
-      //   // centerTitle: true,
-      // ),
 
       body: Stack(
         children: [
@@ -38,21 +30,13 @@ class HomeScreen extends StatelessWidget {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // createNewTask();
           showDialog(
             context: context, 
             builder: (context) {
 
               return DialogBox(
                 controler: _controller,
-                onSave: () {
-                  toDoProvider.guardarNuevaTarea(_controller.text, false);
-                  Navigator.of(context).pop();
-                },
-                onCancel: () {
-                  Navigator.of(context).pop();
-                  _controller.clear();
-                }
+                flag: true,
               );
             }
           );
@@ -76,9 +60,10 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 40, 16, 5),
+      
       child: Column(
         children: [
-          _Title(),
+          const _Title(),
 
           Expanded(
             child: ListView.builder(
@@ -87,12 +72,8 @@ class _Body extends StatelessWidget {
                 return ToDoTile(todoModel: toDoList[index], index: index,);
               }
             )
-          )
-
-          
+          ),
         ],
-
-
       ),
     );
   }
@@ -106,19 +87,19 @@ class _Title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(10),
-        child: Row(
-          children: [
-            Text(
-              'Pendientes',
-              style: GoogleFonts.archivoBlack(
-                textStyle: TextStyle(
-                  fontSize: 30,
-                )
-              ),
-            )
-          ],
-        ),
-      );
+      padding: EdgeInsets.fromLTRB(10, 10, 10, 1),
+      child: Row(
+        children: [
+          Text(
+            'Pendientes',
+            style: GoogleFonts.archivoBlack(
+              textStyle: const TextStyle(
+                fontSize: 30,
+              )
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

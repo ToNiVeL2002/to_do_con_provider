@@ -58,6 +58,10 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    // TODO: Temporal leer la base de datos
+    DBProvider.db.database;
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 40, 16, 5),
       

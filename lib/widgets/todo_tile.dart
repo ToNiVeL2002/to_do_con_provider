@@ -108,12 +108,12 @@ class _Content extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         SizedBox(
-          width: screen.width * 0.8,
+          width: screen.width * 0.75,
           child: Text(
             contenido,
             style: GoogleFonts.roboto(
               textStyle: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
                 decoration: isCheck
                   ? TextDecoration.lineThrough
                   : TextDecoration.none

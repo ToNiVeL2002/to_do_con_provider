@@ -60,8 +60,10 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // TODO: Temporal leer la base de datos
-    DBProvider.db.database;
-
+    // DBProvider.db.database;
+    final nuevaTarea =  new ToDoModel(contenido: 'Sint eu dolor quis esse exercitation proident ullamco magna sunt eiusmod officia laborum eiusmod exercitation.', check: false); 
+    DBProvider.db.nuevaTask( nuevaTarea );
+    
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 40, 16, 5),
       

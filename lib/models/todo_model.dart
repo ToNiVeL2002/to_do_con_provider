@@ -1,11 +1,37 @@
-class ToDoModel {
-  String contenido;
-  bool check;
+//quicktype.io
 
-  ToDoModel({
-    required this.contenido,
-    required this.check
-  });
+// To parse this JSON data, do
+//
+//     final toDoModel = toDoModelFromJson(jsonString);
+
+import 'dart:convert';
+
+ToDoModel toDoModelFromJson(String str) => ToDoModel.fromJson(json.decode(str));
+
+String toDoModelToJson(ToDoModel data) => json.encode(data.toJson());
+
+class ToDoModel {
+    int? id;
+    String contenido;
+    bool check;
+
+    ToDoModel({
+        this.id,
+        required this.contenido,
+        required this.check,
+    });
+
+    factory ToDoModel.fromJson(Map<String, dynamic> json) => ToDoModel(
+        id: json["id"],
+        contenido: json["contenido"],
+        check: json["check"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "contenido": contenido,
+        "completado": check ? 1 : 0,
+    };
 }
 
 

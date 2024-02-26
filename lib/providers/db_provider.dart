@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:path_provider/path_provider.dart';
+
+import 'package:to_do_simple_con_provider/models/models.dart';
 
 class DBProvider {
 
@@ -50,6 +52,32 @@ class DBProvider {
 
   }
 
+  Future<int> nuevaTaskRa( ToDoModel nuevoToDo ) async {
+
+    final id          = nuevoToDo.id;
+    final contenido   = nuevoToDo.contenido;
+    final completado  = nuevoToDo.check ? 1 : 0;
+
+    // Verificar la base de datos
+    final db = await database;
+
+    final res = await db?.rawInsert('''
+      INSERT INTO Tasks( id, contenido, completado )
+        VALUES( $id, '$contenido', $completado )
+    ''');
+
+    return res!;
+  }
+
+  Future<int> nuevaTask( ToDoModel nuevoToDo ) async {
+    final db = await database;
+    final res = await db?.insert( 'Tasks', nuevoToDo.toJson() );
+
+    print(res);
+
+    // Es el ID del ultimo registro INSERTADO
+    return res!;
+  }
 
 }
 

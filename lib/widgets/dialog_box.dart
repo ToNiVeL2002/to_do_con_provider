@@ -23,7 +23,7 @@ class DialogBox extends StatelessWidget {
 
     return AlertDialog(
       backgroundColor: const Color(0xffC5FFF8),
-      content: _Body(screen: screen, controler: controler, flag: flag, id: id!,),
+      content: _Body(screen: screen, controler: controler, flag: flag, id: id ?? 0,),
     ); 
   }
 }

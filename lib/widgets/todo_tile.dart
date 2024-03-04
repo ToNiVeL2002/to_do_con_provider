@@ -9,8 +9,6 @@ import 'package:to_do_simple_con_provider/widgets/widgets.dart';
 class ToDoTile extends StatelessWidget {
 
   final ToDoModel todoModel;
-  // var _controler = TextEditingController();
-
 
   ToDoTile({
     super.key, 

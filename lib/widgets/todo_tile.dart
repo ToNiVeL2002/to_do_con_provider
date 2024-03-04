@@ -31,43 +31,43 @@ class ToDoTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       
       child: Slidable(
-        startActionPane: ActionPane(
-          motion: ScrollMotion(), 
-          children: [
-            SlidableAction(
-              onPressed: ( context ) {
-                print('vamo a editar');
-                todoProvider.obtenerIndex = index;
+        // startActionPane: ActionPane(
+        //   motion: ScrollMotion(), 
+        //   children: [
+        //     SlidableAction(
+        //       onPressed: ( context ) {
+        //         print('vamo a editar');
+        //         todoProvider.obtenerIndex = index;
 
-                showDialog(
-                  context: context, 
-                  builder: ( context ) {
-                    return DialogBox(
-                      controler: _controler, flag: false,
-                    );
-                  }
-                );
-              },
-              icon: Icons.edit_outlined,
-              label: 'Editar',
-              backgroundColor: Colors.yellow.shade300,
-              borderRadius: BorderRadius.circular(20),
-            )
-          ]
-        ),
+        //         showDialog(
+        //           context: context, 
+        //           builder: ( context ) {
+        //             return DialogBox(
+        //               controler: _controler, flag: false,
+        //             );
+        //           }
+        //         );
+        //       },
+        //       icon: Icons.edit_outlined,
+        //       label: 'Editar',
+        //       backgroundColor: Colors.yellow.shade300,
+        //       borderRadius: BorderRadius.circular(20),
+        //     )
+        //   ]
+        // ),
 
-        endActionPane: ActionPane(
-          motion: StretchMotion(), 
-          children: [
-            SlidableAction(
-              onPressed: ( context ) => todoProvider.eliminar(index),
-              icon: Icons.delete_outline,
-              label: 'Eliminar',
-              backgroundColor: Colors.red.shade300,
-              borderRadius: BorderRadius.circular(20),
-            )
-          ]
-        ),
+        // endActionPane: ActionPane(
+        //   motion: StretchMotion(), 
+        //   children: [
+        //     SlidableAction(
+        //       onPressed: ( context ) => todoProvider.eliminar(index),
+        //       icon: Icons.delete_outline,
+        //       label: 'Eliminar',
+        //       backgroundColor: Colors.red.shade300,
+        //       borderRadius: BorderRadius.circular(20),
+        //     )
+        //   ]
+        // ),
       
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 5),
@@ -77,7 +77,7 @@ class ToDoTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(20)
           ),
           
-          child: _Content(screen: screen, contenido: todoModel.contenido, isCheck: todoModel.check, index: index,),
+          child: _Content(screen: screen, contenido: todoModel.contenido, isCheck: todoModel.completado, index: index,),
         ),
       ),
     );

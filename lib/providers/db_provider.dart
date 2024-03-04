@@ -45,8 +45,6 @@ class DBProvider {
             completado INTEGER
           )
         ''');
-        
-
       },
     );
 
@@ -56,7 +54,7 @@ class DBProvider {
 
     final id          = nuevoToDo.id;
     final contenido   = nuevoToDo.contenido;
-    final completado  = nuevoToDo.check ? 1 : 0;
+    final completado  = nuevoToDo.completado ? 1 : 0;
 
     // Verificar la base de datos
     final db = await database;
@@ -78,6 +76,40 @@ class DBProvider {
     // Es el ID del ultimo registro INSERTADO
     return res!;
   }
+
+  Future<List<ToDoModel>?> getTodosTasks() async {
+    final db = await database;
+    final res = await db!.query('Tasks');
+
+    return res.isNotEmpty
+      ? res.map( (e) => ToDoModel.fromJson(e) ).toList()
+      : [];
+  }
+
+  Future<ToDoModel?> getTaskById( int id ) async {
+    final db = await database;
+    final res = await db!.query('Tasks', where: 'id = ?', whereArgs: [id]);
+
+    return res.isNotEmpty
+      ? ToDoModel.fromJson( res.first )
+      : null;
+  }
+
+  Future<int> updateTask( ToDoModel nuevaTask ) async {
+    final db = await database;
+    final res = await db!.update('Tasks', nuevaTask.toJson(), where: 'id = ?', whereArgs: [nuevaTask.id]);
+
+    return res;
+  }
+
+  Future<int> deleteTask( int id ) async{
+    final db = await database;
+    final res = await db!.delete('Tasks', where: 'id = ?', whereArgs: [id]);
+
+    return res;
+  }
+
+
 
 }
 

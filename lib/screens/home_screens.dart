@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_simple_con_provider/models/models.dart';
+import 'package:to_do_simple_con_provider/models/todo_model.dart';
 import 'package:to_do_simple_con_provider/providers/providers.dart';
 import 'package:to_do_simple_con_provider/widgets/widgets.dart';
 
@@ -15,15 +15,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final toDoProvider = Provider.of<ToDoProvider>(context);
-
     return Scaffold(
 
       body: Stack(
         children: [
           const Background(),
 
-          _Body(toDoProvider: toDoProvider,), 
+          _Body(), 
           
         ],
       ),
@@ -48,21 +46,19 @@ class HomeScreen extends StatelessWidget {
 }
 
 class _Body extends StatelessWidget {
-  
-  final ToDoProvider toDoProvider;
-
-  const _Body({
-    super.key, 
-    required this.toDoProvider
-  });
 
   @override
   Widget build(BuildContext context) {
 
-    // TODO: Temporal leer la base de datos
+    final todoProvider = Provider.of<ToDoProvider>(context);
+    todoProvider.cargarTareas();
+    var tasks = todoProvider.tasks;
+
     // DBProvider.db.database;
-    final nuevaTarea =  new ToDoModel(contenido: 'Sint eu dolor quis esse exercitation proident ullamco magna sunt eiusmod officia laborum eiusmod exercitation.', check: false); 
-    DBProvider.db.nuevaTask( nuevaTarea );
+    // final nuevaTarea =  new ToDoModel(contenido: '2 Sint eu dolor quis esse exercitation proident ullamco magna sunt eiusmod officia laborum eiusmod exercitation.', completado: false); 
+    // DBProvider.db.nuevaTask( nuevaTarea );
+    DBProvider.db.getTodosTasks().then(print);
+    
     
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 40, 16, 5),
@@ -73,9 +69,9 @@ class _Body extends StatelessWidget {
 
           Expanded(
             child: ListView.builder(
-              itemCount: toDoList.length,
+              itemCount: tasks.length,
               itemBuilder: (context, index) {
-                return ToDoTile(todoModel: toDoList[index], index: index,);
+                return ToDoTile(key: UniqueKey(), todoModel: tasks[index], index: index,);
               }
             )
           ),

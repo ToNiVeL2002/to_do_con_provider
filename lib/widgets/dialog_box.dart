@@ -7,11 +7,13 @@ class DialogBox extends StatelessWidget {
   
   final TextEditingController controler;
   final bool flag;
+  final int? id;
 
   DialogBox({
     super.key, 
     required this.controler, 
     required this.flag, 
+    this.id, 
   });
 
   @override
@@ -21,7 +23,7 @@ class DialogBox extends StatelessWidget {
 
     return AlertDialog(
       backgroundColor: const Color(0xffC5FFF8),
-      content: _Body(screen: screen, controler: controler, flag: flag),
+      content: _Body(screen: screen, controler: controler, flag: flag, id: id!,),
     ); 
   }
 }
@@ -32,11 +34,13 @@ class _Body extends StatelessWidget {
     required this.screen,
     required this.controler, 
     required this.flag, 
+    required this.id, 
   });
 
   final Size screen;
   final TextEditingController controler;
   final bool flag;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
@@ -72,11 +76,12 @@ class _Body extends StatelessWidget {
                   if (controler.text != '') {
 
                     if ( flag ) {
-                      toDoProvider.guardarNuevaTarea(controler.text, false);
+                      toDoProvider.nuevaTarea(controler.text, false);
                       Navigator.of(context).pop();
                       controler.clear();
                     } else {
-                      toDoProvider.editarTarea(controler.text);
+                      // toDoProvider.editarTarea(controler.text);
+                      toDoProvider.editarTarea(controler.text, false, id);
                       Navigator.of(context).pop();
                       controler.clear();
                     }

@@ -9,14 +9,12 @@ import 'package:to_do_simple_con_provider/widgets/widgets.dart';
 class ToDoTile extends StatelessWidget {
 
   final ToDoModel todoModel;
-  final int index;
   // var _controler = TextEditingController();
 
 
   ToDoTile({
     super.key, 
     required this.todoModel, 
-    required this.index, 
   });
 
   @override
@@ -25,49 +23,49 @@ class ToDoTile extends StatelessWidget {
     Size screen = MediaQuery.of(context).size;
 
     final todoProvider = Provider.of<ToDoProvider>(context);
-    final _controler = TextEditingController(text: todoModel.contenido);
+    final controler = TextEditingController(text: todoModel.contenido);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       
       child: Slidable(
-        // startActionPane: ActionPane(
-        //   motion: ScrollMotion(), 
-        //   children: [
-        //     SlidableAction(
-        //       onPressed: ( context ) {
-        //         print('vamo a editar');
-        //         todoProvider.obtenerIndex = index;
+        startActionPane: ActionPane(
+          motion: ScrollMotion(), 
+          children: [
+            SlidableAction(
+              onPressed: ( context ) {
+                // print('vamo a editar');
+                // todoProvider.obtenerIndex = 1;
 
-        //         showDialog(
-        //           context: context, 
-        //           builder: ( context ) {
-        //             return DialogBox(
-        //               controler: _controler, flag: false,
-        //             );
-        //           }
-        //         );
-        //       },
-        //       icon: Icons.edit_outlined,
-        //       label: 'Editar',
-        //       backgroundColor: Colors.yellow.shade300,
-        //       borderRadius: BorderRadius.circular(20),
-        //     )
-        //   ]
-        // ),
+                showDialog(
+                  context: context, 
+                  builder: ( context ) {
+                    return DialogBox(
+                      controler: controler, flag: false, id: todoModel.id!,
+                    );
+                  }
+                );
+              },
+              icon: Icons.edit_outlined,
+              label: 'Editar',
+              backgroundColor: Colors.yellow.shade300,
+              borderRadius: BorderRadius.circular(20),
+            )
+          ]
+        ),
 
-        // endActionPane: ActionPane(
-        //   motion: StretchMotion(), 
-        //   children: [
-        //     SlidableAction(
-        //       onPressed: ( context ) => todoProvider.eliminar(index),
-        //       icon: Icons.delete_outline,
-        //       label: 'Eliminar',
-        //       backgroundColor: Colors.red.shade300,
-        //       borderRadius: BorderRadius.circular(20),
-        //     )
-        //   ]
-        // ),
+        endActionPane: ActionPane(
+          motion: StretchMotion(), 
+          children: [
+            SlidableAction(
+              onPressed: ( context ) => todoProvider.borrarTareaById(todoModel.id!),
+              icon: Icons.delete_outline,
+              label: 'Eliminar',
+              backgroundColor: Colors.red.shade300,
+              borderRadius: BorderRadius.circular(20),
+            )
+          ]
+        ),
       
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 5),
@@ -77,7 +75,7 @@ class ToDoTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(20)
           ),
           
-          child: _Content(screen: screen, contenido: todoModel.contenido, isCheck: todoModel.completado, index: index,),
+          child: _Content(screen: screen, contenido: todoModel.contenido, isCheck: todoModel.completado),
         ),
       ),
     );
@@ -91,18 +89,18 @@ class _Content extends StatelessWidget {
     required this.screen,
     required this.contenido, 
     required this.isCheck, 
-    required this.index,
+    // required this.index,
   });
 
   final Size screen;
   final String contenido;
   final bool isCheck;
-  final int index;
+  // final int index;
 
   @override
   Widget build(BuildContext context) {
     
-    final toDoProvider = Provider.of<ToDoProvider>(context);
+    // final toDoProvider = Provider.of<ToDoProvider>(context);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -125,7 +123,7 @@ class _Content extends StatelessWidget {
         Checkbox(
           value: isCheck, 
           onChanged: (value) {
-            toDoProvider.isCheck(value!, index);
+            // toDoProvider.isCheck(value!, index);
           },
         )
       ],

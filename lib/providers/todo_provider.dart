@@ -34,11 +34,11 @@ class ToDoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void editarTarea( String contenido ) {
-    toDoList[_index].contenido = contenido;
+  // void editarTarea( String contenido ) {
+  //   toDoList[_index].contenido = contenido;
     
-    notifyListeners();
-  }
+  //   notifyListeners();
+  // }
 
   nuevaTarea( String contenido, bool completado ) async {
     final nuevaTarea = new ToDoModel(contenido: contenido, completado: completado);
@@ -60,8 +60,15 @@ class ToDoProvider extends ChangeNotifier {
   borrarTareaById( int id ) async {
     await DBProvider.db.deleteTask(id);
 
-    cargarTareas();
     notifyListeners();
+  }
+
+  editarTarea( String contenido, bool completado, int id ) async {
+    final tareaEditada = new ToDoModel(contenido: contenido, completado: completado, id: id);
+    await DBProvider.db.updateTask(tareaEditada);
+
+    notifyListeners();
+
   }
 
 }

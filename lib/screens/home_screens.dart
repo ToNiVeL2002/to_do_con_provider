@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
         child: const Icon(Icons.add),
       ),
     );
-  }
+  } // by veliz
 }
 
 class _Body extends StatelessWidget {
@@ -97,4 +97,4 @@ class _Title extends StatelessWidget {
       ),
     );
   }
-}
+}// by veliz

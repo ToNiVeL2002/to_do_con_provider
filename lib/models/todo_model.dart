@@ -35,7 +35,7 @@ class ToDoModel {
 }
 
 
-// Lista de tareas para hacer
+// Ejemplo de Lista de tareas para hacer
   List<ToDoModel> toDoList = [
     ToDoModel(
       contenido: 'Quis ipsum magna ea Lorem aute culpa tempor exercitation exercitation do veniam aliqua veniam veniam.', 

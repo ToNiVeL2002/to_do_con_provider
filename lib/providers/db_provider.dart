@@ -1,8 +1,8 @@
+import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path_provider/path_provider.dart';
 
 import 'package:to_do_simple_con_provider/models/models.dart';
 
@@ -28,14 +28,11 @@ class DBProvider {
     // Path de donde almacenaremos la base de datos
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join( documentsDirectory.path, 'TasksDB.db' );
-    print(path);
 
     return await openDatabase(
       path,
       version: 1,
-      onOpen: (db) {
-        
-      },
+      onOpen: (db) { },
       onCreate: ( Database db, int version) async {
         
         await db.execute(''' 
@@ -45,9 +42,9 @@ class DBProvider {
             completado INTEGER
           )
         ''');
+
       },
     );
-
   }
 
   Future<int> nuevaTaskRa( ToDoModel nuevoToDo ) async {
@@ -102,14 +99,21 @@ class DBProvider {
     return res;
   }
 
+  Future<int> updateTaskCompletion(int taskId, int completionStatus) async {
+    final db = await database;
+    final Map<String, dynamic> updateValues = {
+      'completado': completionStatus,
+    };
+    final res = await db!.update('Tasks', updateValues, where: 'id = ?', whereArgs: [taskId]);
+    
+    return res;
+  }
+
   Future<int> deleteTask( int id ) async{
     final db = await database;
     final res = await db!.delete('Tasks', where: 'id = ?', whereArgs: [id]);
 
     return res;
   }
-
-
-
 }
 

@@ -32,8 +32,6 @@ class ToDoTile extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: ( context ) {
-                // print('vamo a editar');
-                // todoProvider.obtenerIndex = 1;
 
                 showDialog(
                   context: context, 
@@ -73,7 +71,12 @@ class ToDoTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(20)
           ),
           
-          child: _Content(screen: screen, contenido: todoModel.contenido, isCheck: todoModel.completado),
+          child: _Content(
+            screen: screen, 
+            contenido: todoModel.contenido, 
+            isCheck: todoModel.completado,
+            index: todoModel.id!,
+          ),
         ),
       ),
     );
@@ -87,18 +90,18 @@ class _Content extends StatelessWidget {
     required this.screen,
     required this.contenido, 
     required this.isCheck, 
-    // required this.index,
+    required this.index,
   });
 
   final Size screen;
   final String contenido;
   final bool isCheck;
-  // final int index;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     
-    // final toDoProvider = Provider.of<ToDoProvider>(context);
+    final toDoProvider = Provider.of<ToDoProvider>(context);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -121,7 +124,8 @@ class _Content extends StatelessWidget {
         Checkbox(
           value: isCheck, 
           onChanged: (value) {
-            // toDoProvider.isCheck(value!, index);
+            toDoProvider.isCompleted(index, value ?? false);
+            
           },
         )
       ],
